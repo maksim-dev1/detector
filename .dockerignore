@@ -1,0 +1,12 @@
+.git/
+recordings/
+models/
+third_party/
+detector
+*.db
+*.db-shm
+*.db-wal
+*.log
+runtime.json
+config.yaml
+.DS_Store

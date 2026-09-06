@@ -1,0 +1,51 @@
+# Config baked into the Docker image. Secrets/env come from the container env:
+#   BOT_TOKEN, ADMIN_CHAT_ID  — required
+#   YOLO_URL                  — YOLO service base URL (overrides detect.yolo_url)
+#   SEED_RTSP_URL             — optional; only used if a seed block is present
+# Persistent data (SQLite + recordings) lives under /data — mount a volume there.
+
+bot:
+  token: ""
+  admin_chat_id: 0
+
+store:
+  path: "/data/detector.db"
+
+ffmpeg:
+  bin: "ffmpeg"
+  probe: "ffprobe"
+
+detect:
+  yolo_url: "http://192.168.0.155:8000"
+  input_size: 640
+  fps: 6
+  iou_threshold: 0.45
+  default_conf: 0.35
+
+event:
+  trigger_frames: 3
+  cooldown_seconds: 8
+  min_event_seconds: 2
+  pre_seconds: 6
+  post_seconds: 6
+  max_event_seconds: 120
+
+recording:
+  enabled: true
+  dir: "/data/recordings"
+  segment_seconds: 2
+  ring_segments: 150
+  retention_hours: 72
+
+limits:
+  max_streams_per_user: 5
+  max_streams_total: 20
+
+server:
+  enabled: true
+  addr: ":8000"
+  public_url: ""
+
+webhook:
+  enabled: false
+  url: ""

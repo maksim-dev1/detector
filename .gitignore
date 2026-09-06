@@ -1,0 +1,14 @@
+/detector
+/config.yaml
+/runtime.json
+/debug.log
+/detector.db
+/detector.db-*
+/*.db
+/.env
+/models/*.onnx
+/models/*.pt
+/third_party/onnxruntime/
+/recordings/
+*.log
+.DS_Store

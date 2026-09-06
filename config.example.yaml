@@ -1,0 +1,54 @@
+# Скопируй в config.yaml. Секреты/окружение можно задать через env:
+#   BOT_TOKEN, ADMIN_CHAT_ID, YOLO_URL, WEBHOOK_URL, SEED_RTSP_URL
+
+bot:
+  token: ""              # @BotFather
+  admin_chat_id: 0       # твой chat_id (make tg-setup TG_TOKEN=...)
+
+store:
+  path: "detector.db"    # SQLite: пользователи + потоки
+
+ffmpeg:
+  bin: "ffmpeg"
+  probe: "ffprobe"
+
+detect:
+  yolo_url: "http://192.168.0.155:8000"  # YOLO-сервис (POST /detect); или $YOLO_URL
+  input_size: 640
+  fps: 6                 # кадров/сек через YOLO на поток
+  iou_threshold: 0.45    # запас; NMS делает сам YOLO-сервис
+  default_conf: 0.35     # порог по умолчанию для новой камеры
+
+event:
+  trigger_frames: 3      # столько подряд позитивных кадров -> открыть событие
+  cooldown_seconds: 8    # тишина -> закрыть
+  min_event_seconds: 2   # короче -> не сохранять
+  pre_seconds: 6
+  post_seconds: 6
+  max_event_seconds: 120
+
+recording:
+  enabled: true
+  dir: "recordings"      # recordings/<stream_id>/{segments,events}
+  segment_seconds: 2
+  ring_segments: 150
+  retention_hours: 72
+
+limits:
+  max_streams_per_user: 5
+  max_streams_total: 20
+
+server:
+  enabled: true
+  addr: ":8000"
+  public_url: ""         # публичный https:// для кнопки "🔗 Веб" (иначе кнопки нет)
+
+webhook:
+  enabled: false
+  url: ""
+
+# Необязательно: на первом запуске добавить одну камеру, владелец — админ.
+# seed:
+#   name: "Гостиная"
+#   rtsp_url: "rtsp://admin:%40PASS@192.168.0.111:554/user=admin&password=%40PASS&channel=1&stream=0.sdp?real_stream"
+#   rotate: "90cw"
